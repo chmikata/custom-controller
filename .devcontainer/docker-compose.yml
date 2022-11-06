@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: go-app-customcontroller
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # [Choice] Go version 1, 1.18, 1.17
+        # Append -bullseye or -buster to pin to an OS version.
+        # Use -bullseye variants on local arm64/Apple Silicon.
+        VARIANT: 1-bullseye
+    env_file:
+        # Ensure that the variables in .env match the same variables in devcontainer.json
+        - .env
+
+    # Security Opt and cap_add allow for C++ based debuggers to work.
+    # See `runArgs`: https://github.com/Microsoft/vscode-docs/blob/main/docs/remote/devcontainerjson-reference.md
+    security_opt:
+      - seccomp:unconfined
+    cap_add:
+      - SYS_PTRACE
+
+    volumes:
+      - type: bind
+        source: ../
+        target: /workspace
+
+    # Overrides default command so things don't shut down after the process ends.
+    command: sleep infinity
+
+    # Uncomment the next line to use a non-root user for all processes.
+    # user: vscode
