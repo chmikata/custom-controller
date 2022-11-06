@@ -1,0 +1,16 @@
+domain: mekka.github.io
+layout:
+- go.kubebuilder.io/v3
+projectName: foo-controller-kubebuilder
+repo: github.com/chmikata/custom-controller
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: mekka.github.io
+  group: samplecontroller
+  kind: Foo
+  path: github.com/chmikata/custom-controller/api/v1alpha1
+  version: v1alpha1
+version: "3"
