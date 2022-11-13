@@ -5,4 +5,4 @@ kind: Kustomization
 images:
 - name: controller
   newName: chmikata/foo-controller
-  newTag: kubebuilder
+  newTag: kubebuilder-conversion

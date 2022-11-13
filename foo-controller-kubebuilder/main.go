@@ -33,6 +33,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
 	samplecontrollerv1alpha1 "github.com/chmikata/custom-controller/api/v1alpha1"
+	samplecontrollerv1beta1 "github.com/chmikata/custom-controller/api/v1beta1"
 	"github.com/chmikata/custom-controller/controllers"
 	//+kubebuilder:scaffold:imports
 )
@@ -46,6 +47,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(samplecontrollerv1alpha1.AddToScheme(scheme))
+	utilruntime.Must(samplecontrollerv1beta1.AddToScheme(scheme))
 	//+kubebuilder:scaffold:scheme
 }
 
@@ -88,6 +90,10 @@ func main() {
 		Recorder: mgr.GetEventRecorderFor("foo-controller"),
 	}).SetupWithManager(mgr); err != nil {
 		setupLog.Error(err, "unable to create controller", "controller", "Foo")
+		os.Exit(1)
+	}
+	if err = (&samplecontrollerv1alpha1.Foo{}).SetupWebhookWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create webhook", "webhook", "Foo")
 		os.Exit(1)
 	}
 	//+kubebuilder:scaffold:builder
