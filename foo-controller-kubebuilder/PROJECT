@@ -13,4 +13,16 @@ resources:
   kind: Foo
   path: github.com/chmikata/custom-controller/api/v1alpha1
   version: v1alpha1
+  webhooks:
+    defaulting: true
+    validation: true
+    webhookVersion: v1
+- api:
+    crdVersion: v1
+    namespaced: true
+  domain: mekka.github.io
+  group: samplecontroller
+  kind: Foo
+  path: github.com/chmikata/custom-controller/api/v1beta1
+  version: v1beta1
 version: "3"

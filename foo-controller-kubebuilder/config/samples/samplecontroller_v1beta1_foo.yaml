@@ -1,4 +1,4 @@
-apiVersion: samplecontroller.mekka.github.io/v1alpha1
+apiVersion: samplecontroller.mekka.github.io/v1beta1
 kind: Foo
 metadata:
   labels:
@@ -10,3 +10,4 @@ metadata:
   name: foo-sample
 spec:
   deploymentName: example-foo
+  replicas: 3

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package v1alpha1
+package v1beta1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -35,6 +35,11 @@ type FooSpec struct {
 
 	// the replicas of deployment which is owned by foo
 	Replicas *int32 `json:"replicas"`
+
+	// +kubebuilder:validation:Optional
+
+	// the new field for conversion
+	Foo string `json:"foo"`
 }
 
 // FooStatus defines the observed state of Foo
@@ -44,9 +49,8 @@ type FooStatus struct {
 	AvailableReplicas int32 `json:"availableReplicas"`
 }
 
-// +kubebuilder:object:root=true
-// +kubebuilder:subresource:status
-// +kubebuilder:storageversion
+//+kubebuilder:object:root=true
+//+kubebuilder:subresource:status
 
 // Foo is the Schema for the foos API
 type Foo struct {
@@ -57,7 +61,7 @@ type Foo struct {
 	Status FooStatus `json:"status,omitempty"`
 }
 
-// +kubebuilder:object:root=true
+//+kubebuilder:object:root=true
 
 // FooList contains a list of Foo
 type FooList struct {
